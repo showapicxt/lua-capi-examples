@@ -22,7 +22,7 @@
 * A value is stored as an Item:  struct Item { int type, void *val};
 *
 * itm->type = lua_type(L, x); in case of LUA_TNUMBER,
-* if lua_isinteger(L, x) the itm->type = OE_TINTEGER to differentiate between
+* if lua_isnumber(L, x) the itm->type = OE_TINTEGER to differentiate between
 * integers and floats, which both have type LUA_TNUMBER
 *
 * Storing any value entails free'ing the existing entry and allocate new memory
@@ -151,7 +151,7 @@ set (lua_State *L)
             }
         case LUA_TNUMBER:
             {
-                if (lua_isinteger(L, 3)) {
+                if (lua_isnumber(L, 3)) {
                     itm->val = calloc(1, sizeof(lua_Integer));
                     *(lua_Integer *)itm->val = lua_tointeger(L, 3);
                     itm->type = OE_TINTEGER;

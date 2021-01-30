@@ -193,8 +193,6 @@ pairs(lua_State *L)
   stackDump(L, "0");               // [ud]
   lua_pushcfunction(L, iter_kv);      // [ud f]
   stackDump(L, "1");
-  lua_rotate(L, 1, 1);             // [f ud]
-  stackDump(L, "2");
   lua_pushinteger(L, -1);          // [f ud -1]
   stackDump(L, "3");
 
