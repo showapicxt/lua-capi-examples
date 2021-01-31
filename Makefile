@@ -4,15 +4,14 @@ EXAMPLES=$(sort $(wildcard src/*.c))
 TARGETS=$(EXAMPLES:src/%.c=%)
 
 RM=/bin/rm
-
 # build/run an example
 $(TARGETS): %: src/%.c
 	@echo
 	@echo "============== Example $@ ======================="
 	@echo
-	$(CC) -Iinc -undefined -shared -fPIC -o bld/$@.so $<
+	$(CC)  -I /usr/local/openresty/luajit/include/luajit-2.1 -llua-5.1 -shared -fPIC -o bld/$@.so $<
 	@echo "Calling src/t_$@.lua"
-	valgrind --leak-check=yes lua src/t_$@.lua
+	/usr/local/openresty/luajit/bin/luajit   src/t_$@.lua
 
 tests: $(TARGETS)
 	@$(foreach target, $(TARGETS), make $(target);)
